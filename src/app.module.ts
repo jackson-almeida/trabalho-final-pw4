@@ -1,8 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
   imports: [
+    UserModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host:  process.env.DB_HOST,
@@ -14,7 +20,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: false,
     }),
   ],
-  controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
