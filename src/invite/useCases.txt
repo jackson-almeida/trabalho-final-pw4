@@ -1,0 +1,11 @@
+# Entidade #
+- id (Primary Key)
+- hostUser (Usuario anfitrião)
+- guestUser (Usuario convidado)
+- eventId (Id do evento em foco)
+
+Casos de uso:
+
+- HostUser: digita o email para convidar, email é validado e convite é enviado
+- GuestUser: Ao logar sua conta irá aparecer os convites, o usuario pode aceitar o rejeitar
+- GuestUser: Aceitando o evento, o mesmo é adicionado ao seu caléndario
