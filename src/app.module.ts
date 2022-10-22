@@ -6,14 +6,21 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { User } from './user/user.entity';
+import { Events } from './events/events.entity';
+import { EventsModule } from './events/events.module';
+import { InviteModule } from './invite/invite.module';
+import { Invite } from 'src/invite/invite.entity';
+
 
 @Module({
   imports: [
+  UserModule,
+    EventsModule,
+    AuthModule,
+    InviteModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    UserModule,
-    AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host:  process.env.DB_HOST,
@@ -21,7 +28,7 @@ import { User } from './user/user.entity';
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_DATABASE,
-      entities: [User],
+      entities: [User, Events, Invite],
       synchronize: true,
     }),
   ],
